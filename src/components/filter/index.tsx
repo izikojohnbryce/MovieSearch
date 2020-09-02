@@ -3,6 +3,16 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 
+// // interface IProps {
+//     color: string
+//     setColorInGlobalState: Function
+// }
+
+// interface IState {
+//     color: string
+// }
+
+
 interface IProps {
     filterOperation: Function
 }
@@ -18,7 +28,7 @@ export default function Filter(props: IProps) {
                 onChange={(e) => setFilterValue(e.target.value)}
                 value={filterValue}
             />
-            <Button onClick={() => { filterOperation(filterValue) }}> Filter </Button>
+            <Button onClick={() => { filterOperation(filterValue) }}> Filter </Button> 
             <Button onClick={() => {
                 setFilterValue("");
                 filterOperation("")
@@ -27,3 +37,6 @@ export default function Filter(props: IProps) {
 
     </div>
 }
+
+
+/* just start */

@@ -1,5 +1,5 @@
 import React from "react";
-import { StarColors } from "../rank/"
+import { StarColors } from "../rank/";
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';

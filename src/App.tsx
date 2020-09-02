@@ -32,10 +32,13 @@ function App() {
 
 
 
-    async function getMoviesApi() {
-        const moviesUrl = "http://www.omdbapi.com/?s=scream&apikey=4f7462e2&page=10"
+    async function getMoviesApi(search:string="matrix") {
+        if (!search || search.length<2) return setMovies(movies);
+        const moviesUrl = `http://www.omdbapi.com/?s=${search}&page=1&apikey=4f7462e2`
         const { data } = await axios.get(moviesUrl);
-        setMovies(data.Search)
+       // const m = movies.filter(movie => searchNorm(movie, search)
+        
+        setMovies(data.Search || [])
     }
 
     useEffect(() => {
@@ -76,11 +79,18 @@ function App() {
 
         }
     }
-
+        const searchNorm = (movie:any, value:any)=> 
+                `${movie.Title.toLowerCase()}${movie.Year.toLowerCase()}${movie.imdbID.toLowerCase()}`
+                         .includes(value.toLowerCase());
+        
     function filterOperation(value: string) {
-        if (!value) return setMovies(movies);
-        const filteredMovies = movies.filter(movie => movie.Title.toLowerCase().includes(value))
-        setMovies(filteredMovies)
+        getMoviesApi(value);
+        
+    }
+
+    function clearFilter(e:any) {
+        getMoviesApi();
+        
     }
     return <div className="container">
         <Configuration setColorInGlobalState={setStarsColor} color={starsColor} />
@@ -91,7 +101,7 @@ function App() {
         <CustomHeader style={{ color: "green" }} text={"Movies"} />
         <div className="row">
             <Filter filterOperation={filterOperation} />
-            <Button onClick={getMoviesApi} > clear filter</Button>
+            <Button onClick={clearFilter} > clear filter</Button>
         </div>
         <div className="row">
             <Button onClick={clearMovies} > clear Movies</Button>
